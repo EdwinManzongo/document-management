@@ -1,10 +1,11 @@
-# auth-service
+# document management
 
 Setup Steps
 1. Clone the repository
-2. Install packages (pip install -r requirements.txt)
-3. Make migrations (python manage.py makemigrations)
-4. Migrate (python manage.py migrate)
-5. Runserver (python manage.py runserver)
-6. localhost/create_account
-7. localhost/api/accounts/1
+2. Create virtual environment (python3 -m venv env)
+3. Activate virtual environment (source env/bin/activate)
+4. Install packages (pip install -r requirements.txt)
+5. Make migrations (python manage.py makemigrations)
+6. Migrate (python manage.py migrate)
+7. Runserver (python manage.py runserver)
+8. localhost:8000
