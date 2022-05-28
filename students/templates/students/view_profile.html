@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% comment %} <form action="" method="post" enctype="multipart/form-data" autocomplete="off" >{% csrf_token %} {% endcomment %}
+  <div class="app-wrapper">
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+      <div class="container-xl">
+        <h1 class="app-page-title">View Profile</h1>
+      <div class="row gy-4">
+        <div class="col-12 col-lg-6">
+          <div class="tab-content" id="orders-table-tab-content">
+            <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                <div class="app-card app-card-orders-table shadow-sm mb-8">
+                  <div class="table-responsive">
+                    <table class="table app-table-hover mb-0 text-left">
+                      <tbody>
+                        <br>
+                        <tr>
+                          <td><b>Student ID</b></td>
+                          <td>
+                            {{ object.student_id }}                            
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><b>Fullname</b></td>
+                          <td>
+                            {{ object.fullname }}                            
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><b>National ID</b></td>
+                          <td>
+                            {{ object.national_id_no }}                            
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><b>Date Of Birth</b></td>
+                          <td>
+                            {{ object.dob }}                           
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><b>Contact Number</b></td>
+                          <td>
+                            {{ object.contact_number }}                           
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><b>Address</b></td>
+                          <td>                         
+                            {{ object.address }}
+                          </td>
+                        </tr> 
+                        <tr>
+                          <td><b>Student Type</b></td>
+                          {% if item.student_type == "undergraduate" %}
+                            <td>Undergraduate Programme</td>
+                          {% elif item.student_type == "postgraduate_masters" %}
+                            <td>Post Graduate - Masters</td>
+                          {% elif item.student_type == "postgraduate_doctorate" %}
+                            <td>Post Graduate - Doctorate</td>
+                          {% elif item.student_type == "postgraduate_professor" %}
+                            <td>Post Graduate - Professor</td>
+                          {% else %}
+                            <td>Research</td>
+                          {% endif %}
+                        </tr> 
+                        <tr>
+                          <td><b>Department</b></td>
+                          {% if item.department == "information_systems" %}
+                            <td>Information Systems</td>
+                          {% elif item.department == "computer_science" %}
+                            <td>Computer Science</td>
+                          {% elif item.department == "business_studies_and_computing_science" %}
+                            <td>Business Studies And Computing Science</td>
+                          {% else %}
+                            <td>Accounting</td>
+                          {% endif %} 
+                        </tr> 
+                      </tbody>
+                    </table>
+                    <br>
+                    <br>
+                  </div><!--//table-responsive-->		
+                </div><!--//app-card-->                    
+            </div><!--//tab-pane-->
+          </div><!--//tab-content-->
+        </div><!--//col-->
+        <div class="col-12 col-lg-6">
+          <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+            <div class="app-card-header p-3 border-bottom-0">
+              <div class="row align-items-center gx-3">
+                <div class="col-auto">
+                  {% comment %} <h4 class="app-card-title">Document</h4> {% endcomment %}
+                </div><!--//col-->
+              </div><!--//row-->
+            </div><!--//app-card-header-->
+            <div class="app-card-body px-4 w-100">
+            </div><!--//app-card-body-->
+          </div><!--//app-card-->
+        </div><!--//col-->
+      </div><!--//row-->
+      </div><!--//container-fluid-->
+    </div><!--//app-content-->
+    
+    {% comment %} <footer class="app-footer">
+      <div class="container text-center py-3">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+          <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+          
+      </div>
+    </footer><!--//app-footer--> {% endcomment %}
+  </div><!--//app-wrapper--> 
+{% comment %} </form> {% endcomment %}
+{% endblock %}
+
+
+{% block footer %}
+    <!-- Javascript -->          
+    <script src="{% static "assets/plugins/popper.min.js" %}"></script>
+    <script src="{% static "assets/plugins/bootstrap/js/bootstrap.min.js" %}"></script>  
+
+    <!-- Page Specific JS -->
+    <script src="{% static "assets/js/app.js" %}"></script> 
+{% endblock %}

@@ -1,0 +1,427 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            
+            <a href="{% url 'cabinet:create_document' %}" class="btn btn-sm btn-lg btn-success float-right">Add  New Document</a>
+        
+        </div>
+        <br>
+    </div>
+
+    <div class="row">
+    <div class="col-12">
+       
+        <!-- Small modal -->
+        <a type="button" class="btn btn-sm btn-lg btn-success" data-toggle="modal" data-target=".bs-example-modal-center">Search By Document No</a>
+        <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0">Search by Document No</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <form action="{% url 'cabinet:search_document' %}" method="POST" autocomplete="off">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <div class="form-group">
+                                      
+                                      <label for="inputName"><label for="month">Document Number:</label></label>
+                                      <input type="text" class="form-control" name="search_no">
+                                      
+                                    </div>
+     
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="inputName"><label for="month">Search:</label></label>
+                                    <div class="form-group">
+                                        <input type="submit" value="Search" class="btn btn-success float-left">    
+                                    </div>
+                                </div>
+  
+                            </div>
+               `
+                        </div>
+                        </form>
+                        
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+     
+    </div>
+</div>
+<hr>
+<form action="{% url 'cabinet:document_filter' %}" method="POST" autocomplete="off">{% csrf_token %}
+    <div class="row">
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+            
+                <div class="form-group">
+                    
+                    <label for="inputName"><label for="month">Keyword :</label></label>
+                
+                    <input type="text" class="form-control" name="search_term" placeholder="Enter document keywords">
+                    
+                </div>
+    
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+            
+                <div class="form-group">
+                    
+                    <label for="inputName"><label for="month">FUNCTION:</label></label>
+                    <select name="function" class="form-control custom-select"  id="function">
+                        <option value="" selected="">--FUNCTION--</option>
+                        <option value="underwriting">underwriting</option>
+                        <option value="claims">claims</option>
+                    </select>
+                    
+                </div>
+    
+            </div>
+        </div>
+
+         <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+            
+                <div class="form-group">
+                    
+                    <label for="inputName"><label for="month">Client Name</label></label>
+                    
+                    <select name="client_name" class="js-example-basic-single form-control custom-select"  id="client_name">
+                            <option value="" selected="">-- CLIENT NAME--</option>
+                            {% for item in clients %}
+                                
+                                <option value="{{item.id}}">{{item.fullname_or_company_name}} -:- {{item.client_type}} </option>
+                            
+                            {% endfor %}
+                    </select>
+
+                    
+                    
+                
+                  
+                    
+                </div>
+    
+            </div>
+        </div>
+
+        
+
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+            
+                <div class="form-group">
+                    
+                    <label for="inputName"><label for="month">Client Type:</label></label>
+                    <select name="client_type" class="form-control custom-select"  id="client_type">
+                        <option value="" selected="">-- CLIENT TYPE--</option>
+                        <option value="individual">Individual</option>
+                        <option value="corporate">Corporate</option>
+                    </select>
+                    
+                </div>
+    
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <!-- text input -->
+            <div class="form-group">
+            
+                <div class="form-group">
+                    <label for="inputName"><label for="month">Cabinet:</label></label>
+                    <select name="cabinet" class="js-example-basic-single form-control custom-select"  id="id_cabinet" >
+                        <option value="" selected="">---Select Cabinet---</option>
+                        {% comment %} <option value="general_file">General File</option>
+                        <option value="motor_file">Motor File</option>
+                        <option value="all_assets_risk">Assets All Risks</option>
+                        <option value="electronic_equipment">Electronic Equipment</option>
+                        <option value="machinery_breakdown">Machinery Breakdown</option>
+                        <option value="deterioration_of_stock">Deterioration of stock</option>
+                        <option value="loan_protection">Loan Protection</option>
+                        <option value="motor">Motor</option>
+                        <option value="house_owners">Houseowners</option>
+                        <option value="Public Liability Policy">Public Liability Policy</option>
+                        <option value="Umbrella Liability Policy">Umbrella Liability Policy</option>
+                        <option value="Employers Liability Policy">Employers Liability Policy</option>
+                        <option value="Products Liability Policy">Products Liability Policy</option>
+                        <option value="Plant All Risks Policy">Plant All Risks Policy</option>
+                        <option value="Carriers Liability Policy">Carriers Liability Policy</option>
+                        <option value="Warehouseman Liability">Warehouseman Liability</option>
+                        <option value="Directors and Officers Liability">Directors and Officers Liability</option>
+                        <option value="Plant All Risks">Plant All Risks</option>
+                        <option value="Tobacco Stock throughput">Tobacco Stock throughput</option>
+                        <option value="Marine Hull">Marine Hull</option>
+                        <option value="Open Marine Cargo">Open Marine Cargo</option>
+                        <option value="Fidelity Guarantee Policy">Fidelity Guarantee Policy</option>
+                        <option value="Credit Insurance">Credit Insurance</option>
+                        <option value="Home Combined Policy">Home Combined Policy</option>
+                        <option value="Group Personal Accident">Group Personal Accident</option>
+                        <option value="Directors Personal Accident">Directors Personal Accident</option>
+                        <option value="Professional Indemnity">Professional Indemnity</option>
+                        <option value="Advance payment guarantee">Advance payment guarantee</option>
+                        <option value="Bid Bond">Bid Bond</option>
+                        <option value="Performance Bond">Performance Bond</option>
+                        <option value="Farm Comprehensive Policy">Farm Comprehensive Policy</option>
+                        <option value="Goods in Transit Policy">Goods in Transit Policy</option>
+                        <option value="Open Marine Policy">Open Marine Policy</option>
+                        <option value="Contractors All Risks">Contractors All Risks</option>
+                        <option value="Erection All Risks">Erection All Risks</option>
+                        <option value="claim1">Claims1</option>
+                        <option value="claim2">Claims2</option>
+                        <option value="claim3">Claims3</option>
+                        <option value="claim4">Claims4</option>
+                        <option value="claim5">Claims5</option>
+                        <option value="claim6">Claims6</option>
+                        <option value="claim7">Claims7</option>
+                        <option value="claim8">Claims8</option>
+                        <option value="claim9">Claims9</option>
+                        <option value="claim10">Claims10</option> {% endcomment %}
+                    </select>
+                    
+                </div>
+    
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <!-- text input -->
+            <div class="form-group">
+            
+                <div class="form-group">
+                     <label for="inputName"><label for="month">Document Type:</label></label>
+                    <select name="document_type" class="form-control custom-select"  id="id_period" >
+                        <option value="" selected="">---SELECT DOCUMENT TYPE---</option>
+                        <option value="policy_schedules">Policy Schedules</option>
+                        <option value="emails">Emails</option>
+                        <option value="invoices">Invoices</option>
+                        <option value="photos">Photos</option>
+                    </select>
+                    
+                </div>
+    
+            </div>
+        </div>
+
+     
+
+        <div class="col-sm-3">
+            <div class="form-group">
+              <label for="inputName"><label for="month">Action:</label></label>
+                <div class="form-group">
+                    
+                    <input type="submit" value="Find" class="btn btn-success float-left ml-2 mr-2">    
+                    <a type="button" href="{% url 'cabinet:list_documents' %}"  class="btn btn-danger float-left"> <i class="fa fa-trash" aria-hidden="true"> Clear Filters</i> </a>
+                    
+                </div>
+            </div>
+           
+           
+        </div>
+   
+    
+    </div>
+    </form>
+<br>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+        
+        
+                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+
+                        <th>Doc No</th>
+                        <th>Document Title</th>
+                        <th>Client Name</th>
+                        <th>Client Type</th>
+                        
+                        <th>Document Type</th>
+                        <th>Cabinet</th>
+                        <th>Document</th>
+                        <th>Date</th>
+                        
+                
+                        <th>Actions  </th>
+                        
+                    
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    
+                
+                    {% for item in object_list %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{item.document_title}}</td>
+                            <td>{{item.client.fullname_or_company_name}}</td>
+                            <td>{{item.client.client_type}}</td>
+                            
+                             <td>{{item.document_type}}</td>
+                        
+                        
+                            <td>{{item.cabinet}}</td>
+                            <td><a type="application/octet-stream" href="{{item.document.url}}" >view</a></td>
+                            <td>{{item.date}}</td>
+                           
+                            
+                            
+                        
+                        
+                            <td>
+                                <a href="{% url  'cabinet:edit_document' item.id %}" class="btn btn-sm btn-outline-primary waves-effect waves-light" ><i class="fas fa-edit"></i></a>
+                                <a href="{% url  'cabinet:view_document' item.id %}" class="btn btn-sm btn-outline-warning waves-effect waves-light" ><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                {% comment %} 
+                                
+                                <a href="{% url  'cabinet:client_delete' item.id %}" class="btn btn-sm btn-outline-danger waves-effect waves-light" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                {% endcomment %}
+                            </td>
+                        
+                        </tr>
+                    {% endfor %}
+            
+            
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+</div> <!-- end row -->
+
+{% endblock %}
+
+{% block footer %}
+    <script>
+    $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+    <script>
+        var update_type = function () {
+        //disable client name from client type
+        if ($("#client_name").val() == "") {
+           
+           $('#client_type').prop('disabled', false);
+        }
+        else {
+           
+          $('#client_type').prop('disabled', 'disabled');
+        }
+
+     
+
+        };
+        $(update_type);
+        $("#client_name").change(update_type);
+
+        
+
+        //disable client name from client type
+        var update_name = function () {
+        
+        if ($("#client_type").val() == "") {
+           
+           $('#client_name').prop('disabled', false);
+        }
+        else {
+          $('#client_name').prop('disabled', 'disabled');
+        }
+
+        };
+        $(update_name);
+        $("#client_type").change(update_name);
+
+
+         
+    </script>
+
+    <script>
+        //function selection
+        $('#function').on('change', function() {
+        
+          ClearExisitingData()
+          $('#id_cabinet').prop('disabled', false);
+
+      
+          $.ajax(
+              {
+                  type:"get",
+                  url: "{% url 'cabinet:function_data' %}",
+                  data: {
+                          'function_name': $("#function").val() ,
+                          
+                          },
+                      success: function (response) {
+                          var  cabinet_data = response; 
+
+                          console.log(cabinet_data);
+                          //episode value
+                         
+                         
+                          // $('#id_cabinet')
+                          //         .append($('<option>', {})
+                          //         .text(cabinet_data[0][0][1]));
+                          $.each(cabinet_data[0], function(key, value) { 
+                              console.log(value[0]+" test")  
+                              $('#id_cabinet')
+                                  .append($('<option>', { value : value[0]})
+                                  .text(value[1])); 
+                              
+                          });
+                          
+                          
+                  
+                      },
+                  
+                  error: function(){
+                      console.log("error encountered");
+                  }
+              });
+      
+      
+      });
+
+  function ClearExisitingData(){
+      //clear vitals
+      $('#id_cabinet').empty();
+    
+      
+      //append new header 
+  
+  }
+  </script>
+     <!-- Required datatable js -->
+     <script src="{% static "admin/assets/libs/datatables.net/js/jquery.dataTables.min.js" %}"></script>
+     <script src="{% static "admin/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js" %}"></script>
+
+     <!-- Datatable init js -->
+     <script src="{% static "admin/assets/js/pages/datatables.init.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data" autocomplete="off" >{% csrf_token %}
+    <div class="app-wrapper">
+	    <div class="app-content pt-3 p-md-3 p-lg-4">
+		    <div class="container-xl">
+			    
+			    <h1 class="app-page-title">Upload Document</h1>
+				<div class="row gy-4">
+					<div class="col-12 col-lg-6">
+						<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+							<div class="app-card-header p-3 border-bottom-0">
+								<div class="row align-items-center gx-3">
+									<div class="col-auto">
+										{% comment %} <h4 class="app-card-title">Document</h4> {% endcomment %}
+									</div><!--//col-->
+								</div><!--//row-->
+							</div><!--//app-card-header-->
+							<div class="app-card-body px-4 w-100">
+								<div class="row justify-content-between align-items-center">
+									<div class="mb-3">
+										<label for="setting-input-2" class="form-label" style="font-weight: 600;">{{ form.cabinet.label_tag }}</label>
+										{{ form.cabinet }}
+									</div><!--//form-group-->
+								</div><!--//row-->
+								<div class="row justify-content-between align-items-center">
+									<div class="email mb-3">
+										<label for="setting-input-2" class="form-label" style="font-weight: 600;">{{ form.document_type.label_tag }}</label>
+										{{ form.document_type }}
+									</div><!--//form-group-->
+								</div><!--//row-->
+								<div class="row justify-content-between align-items-center">
+									<div class="email mb-3">
+										<label for="setting-input-2" class="form-label" style="font-weight: 600;">{{ form.document_title.label_tag }}</label>
+										{{ form.document_title }}
+									</div><!--//form-group-->
+								</div><!--//row-->
+								<div class="row justify-content-between align-items-center">
+									<div class="email mb-3">
+										<label class="setting-input-2" for="signin-email" style="font-weight: 600;">{{ form.contact_number.label_tag }}</label>
+										{{ form.contact_number }}
+									</div><!--//form-group-->
+								</div><!--//row-->
+							</div><!--//app-card-body-->
+						</div><!--//app-card-->
+					</div><!--//col-->
+					<div class="col-12 col-lg-6">
+						<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                            <div class="app-card-header p-3 border-bottom-0">
+								<div class="row align-items-center gx-3">
+									<div class="col-auto">
+										{% comment %} <h4 class="app-card-title">Document</h4> {% endcomment %}
+									</div><!--//col-->
+								</div><!--//row-->
+							</div><!--//app-card-header-->
+							<div class="app-card-body px-4 w-100">
+								<div class="row justify-content-between align-items-center">
+									<div class="email mb-3">
+										<label for="setting-input-2" class="form-label" style="font-weight: 600;">{{ form.document.label_tag }}</label>
+										{{ form.document }}
+									</div><!--//form-group-->
+								</div><!--//row-->
+								<div class="row justify-content-between align-items-center">
+									<div class="email mb-3">
+										<label for="setting-input-2" class="form-label" style="font-weight: 600;">{{ form.notes.label_tag }}</label>
+										{{ form.notes }}
+									</div><!--//form-group-->
+								</div><!--//row-->
+							</div><!--//app-card-body-->
+                            <div class="app-card-footer p-4 mt-auto">
+								<button type="submit" class="btn app-btn-primary" >Save Document</button>
+							</div><!--//app-card-footer-->
+						</div><!--//app-card-->
+					</div><!--//col-->
+				</div><!--//row-->
+		    </div><!--//container-fluid-->
+	    </div><!--//app-content-->
+	    
+	    {% comment %} <footer class="app-footer">
+		    <div class="container text-center py-3">
+		         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		       
+		    </div>
+	    </footer><!--//app-footer--> {% endcomment %}
+    </div><!--//app-wrapper--> 
+</form>
+{% endblock %}
+
+
+{% block footer %}
+    <!-- Javascript -->          
+    <script src="{% static "assets/plugins/popper.min.js" %}"></script>
+    <script src="{% static "assets/plugins/bootstrap/js/bootstrap.min.js" %}"></script>  
+
+    <!-- Page Specific JS -->
+    <script src="{% static "assets/js/app.js" %}"></script> 
+{% endblock %}
