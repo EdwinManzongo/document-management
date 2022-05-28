@@ -1,7 +1,7 @@
 # document management
 
 Setup Steps
-1. Clone the repository
+1. Clone the repository (git clone https://github.com/EdwinManzongo/document-management.git)
 2. Create virtual environment (python3 -m venv env)
 3. Activate virtual environment (source env/bin/activate)
 4. Install packages (pip install -r requirements.txt)
