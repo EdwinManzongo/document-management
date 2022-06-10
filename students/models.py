@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-# from django.contrib.auth.models import User
+from supervisors.models import Supervisor
 from django.utils import timezone
 
 # Create your models here.
@@ -32,10 +32,11 @@ class Student(models.Model):
     student_type = models.CharField(max_length=100 , choices = STUDENT_TYPE)
     national_id_no = models.CharField(blank=True , null=True, default=None, max_length=100)
     dob = models.CharField(default=None, max_length=100)
+    # supervisor = models.ForeignKey(Supervisor, on_delete=models.CASCADE, default=None)
     user_id = models.CharField(default=None, max_length=10)
     created_at = models.DateField(default=None)
     updated_at = models.DateField(default=None)
     created_by = models.CharField(default=None, max_length=100)
 
     def __str__(self):
-        return '%s' % "Student Type : "+ self.student_type +" | name: "+ self.fullname
+        return '%s' % "Student Type : "+ self.student_type +" | Name: "+ self.fullname
