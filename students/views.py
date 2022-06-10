@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import StudentCreateForm
+from .forms import StudentCreateForm, DocumentCreateForm, DocumentEditForm
 from .models import Student 
+from cabinet.models import Cabinet, ProposalCabinet
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.utils import timezone
@@ -33,36 +34,106 @@ class CreateStudent(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse('students:list_profile', kwargs={})
+        # pk = self.request.user.id
+        # return reverse('students:view_profile', kwargs={"pk": pk})
+        return reverse('students:list_documents', kwargs={})
 
 class ListStudents(ListView):
     model = Student
     template_name = 'students/list_profile.html'
+
+def student_dashboard(request):
+    all_calls = Cabinet.objects.filter(user_name = request.user)
+
+    context = {
+        'title':'Your Documents',
+        'all_calls': all_calls,
+    }
+
+    return render(request , "students/list_documents.html" , context) 
 
 class StudentsDetailView(DetailView):
     model = Student
    
     template_name = "students/view_profile.html"
 
-class Update_Student(SuccessMessageMixin , UpdateView):
+class UpdateStudent(SuccessMessageMixin , UpdateView):
     model = Student
     template_name = 'students/update_profile.html'
     form_class = StudentCreateForm
-    # success_message = 'Client successfully updated'
-
-    # def get_context_data(self, **kwargs):
-    #         context = super(Update_Client, self).get_context_data(**kwargs)
-    #         context['title'] = "Updating information for Client no : "+str(self.kwargs['pk'])
-    #         return context
             
     def get_success_url(self):
-        return reverse('student:list_profile', kwargs={})
+        pk = self.request.user.id
+        return reverse('students:view_profile', kwargs={"pk": pk})
 
-# class DeleteClient(DeleteView):
-#     model = Client
-#     success_url = '/clients/list_clients'
-#     success_message = "Client deleted successfully."
-#     def delete(self, request, *args, **kwargs):
-#         messages.add_message(self.request, messages.INFO , self.success_message)
-#         return super(DeleteClient, self).delete(request, *args, **kwargs)
+class DeleteStudent(DeleteView):
+    model = Student
+    success_url = '/student/list_profile'
+    # success_message = "Student deleted successfully."
+    def delete(self, request, *args, **kwargs):
+        # messages.add_message(self.request, messages.INFO , self.success_message)
+        return super(DeleteStudent, self).delete(request, *args, **kwargs)
+
+# Create Document Views
+class CreateDocument(CreateView):
+    model = Cabinet
+    form_class = DocumentCreateForm
+    template_name = 'students/create_document.html'
+    # success_url = '/list_documents'
+
+    def form_valid(self, form): 
+        data = form.save(commit=False)
+        data.created_at = timezone.now()
+        data.created_by = self.request.user.id
+        data.user_name = self.request.user
+        data.updated_at = timezone.now()
+        data.save()
+
+        # messages.add_message(self.request, messages.INFO, 'Document successfully saved')
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('student:list_documents', kwargs={})
+
+class UpdateDocument(SuccessMessageMixin, UpdateView):
+    model = Cabinet
+    template_name = 'students/update_document.html'
+    form_class = DocumentEditForm
+    # success_message = 'Document  updated'
+
+    def get_context_data(self, **kwargs):
+            context = super(UpdateDocument, self).get_context_data(**kwargs)
+            context['title'] = "Updating information for Document no : "+str(self.kwargs['pk'])
+            return context
+            
+    def get_success_url(self):
+        return reverse('student:list_documents', kwargs={})
+
+class DocumentDetailView(DetailView):
+    model = Cabinet
+   
+    template_name = "students/view_document.html"
+
+class ListDocuments(ListView):
+    model = Cabinet
+    template_name = 'students/list_documents.html'
+    # clients = None
+    def get_context_data(self, **kwargs):
+        context = super(ListDocuments, self).get_context_data(**kwargs)
+        # clients = Client.objects.all().order_by('fullname_or_company_name')
+        
+        context['title'] = "Listing Documents"
+        # context['clients'] = clients
+        return context
     
+class ListProposal(ListView):
+    model = ProposalCabinet
+    template_name = 'students/list_proposals.html'
+    # clients = None
+    def get_context_data(self, **kwargs):
+        context = super(ListProposal, self).get_context_data(**kwargs)
+        # clients = Client.objects.all().order_by('fullname_or_company_name')
+        
+        context['title'] = "Listing Proposals"
+        # context['clients'] = clients
+        return context

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'cabinet',
     'students',
+    'supervisors',
     'api',
     'rest_framework',
     'rest_framework.authtoken',

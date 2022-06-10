@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import DocumentCreateForm, DocumentEditForm
-from .models import Cabinet 
+from .forms import DocumentCreateForm, DocumentEditForm, ProposalCreateForm
+from .models import Cabinet, ProposalCabinet
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.utils import timezone
@@ -48,7 +48,36 @@ class ListDocuments(ListView):
         # context['clients'] = clients
         return context
 
-class Update_Document(SuccessMessageMixin, UpdateView):
+def supervisor_dashboard(request):
+    all_calls = Cabinet.objects.filter(supervisor = request.user.id)
+
+    context = {
+        'title':'Your Documents',
+        'all_calls': all_calls,
+    }
+
+    return render(request , "cabinet/list_documents.html" , context) 
+
+class UpdateDocument(SuccessMessageMixin, UpdateView):
+    model = Cabinet
+    template_name = 'cabinet/update_document.html'
+    form_class = DocumentEditForm
+    # success_message = 'Document  updated'
+
+    def get_context_data(self, **kwargs):
+            context = super(UpdateDocument, self).get_context_data(**kwargs)
+            context['title'] = "Updating information for Document no : "+str(self.kwargs['pk'])
+            return context
+            
+    def get_success_url(self):
+        return reverse('cabinet:list_documents', kwargs={})
+
+class DocumentDetailView(DetailView):
+    model = Cabinet
+   
+    template_name = "cabinet/view_document.html"
+
+class ReviewDocument(SuccessMessageMixin, UpdateView):
     model = Cabinet
     template_name = 'cabinet/update_document.html'
     form_class = DocumentEditForm
@@ -62,10 +91,38 @@ class Update_Document(SuccessMessageMixin, UpdateView):
     def get_success_url(self):
         return reverse('cabinet:list_documents', kwargs={})
 
-class DocumentDetailView(DetailView):
-    model = Cabinet
-   
-    template_name = "cabinet/view_document.html"
+# Proposal Idea
+class CreateProposal(CreateView):
+    model = ProposalCabinet
+    form_class = ProposalCreateForm
+    template_name = 'cabinet/create_proposal.html'
+    # success_url = '/list_documents'
+
+    def form_valid(self, form): 
+        data = form.save(commit=False)
+        data.created_at = timezone.now()
+        data.created_by = self.request.user.id
+        data.user_name = self.request.user
+        data.updated_at = timezone.now()
+        data.save()
+
+        # messages.add_message(self.request, messages.INFO, 'Document successfully saved')
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('cabinet:list_proposals', kwargs={})
+
+class ListProposal(ListView):
+    model = ProposalCabinet
+    template_name = 'cabinet/list_proposals.html'
+    # clients = None
+    def get_context_data(self, **kwargs):
+        context = super(ListProposal, self).get_context_data(**kwargs)
+        # clients = Client.objects.all().order_by('fullname_or_company_name')
+        
+        context['title'] = "Listing Proposals"
+        # context['clients'] = clients
+        return context
 
 # # FBV HERE
 
@@ -125,3 +182,35 @@ class DocumentDetailView(DetailView):
 #         'title':"Listing Filtered Documents"
 #     }
 #     return render(request, 'cabinet/list_documents.html', context)
+
+class CreateProposal(CreateView):
+    model = ProposalCabinet
+    form_class = ProposalCreateForm
+    template_name = 'cabinet/create_document.html'
+    # success_url = '/list_documents'
+
+    def form_valid(self, form): 
+        data = form.save(commit=False)
+        data.created_at = timezone.now()
+        data.created_by = self.request.user.id
+        data.user_name = self.request.user
+        data.updated_at = timezone.now()
+        data.save()
+
+        # messages.add_message(self.request, messages.INFO, 'Document successfully saved')
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('cabinet:list_proposals', kwargs={})
+
+class ListProposals(ListView):
+    model = ProposalCabinet
+    template_name = 'cabinet/list_proposals.html'
+    # clients = None
+    def get_context_data(self, **kwargs):
+        context = super(ListProposals, self).get_context_data(**kwargs)
+        # clients = Client.objects.all().order_by('fullname_or_company_name')
+        
+        context['title'] = "Listing Proposals"
+        # context['clients'] = clients
+        return context

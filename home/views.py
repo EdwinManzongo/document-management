@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required , permission_required
 from .models import Authenticate 
 from .forms import AuthenticateForm
 from django.views.generic import (CreateView, DetailView, ListView, TemplateView, UpdateView)
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -22,6 +23,14 @@ def home_login(request):
       
       if(user is not None):
          login(request , user)
+         # filter the Group model for current logged in user instance
+         query_set = Group.objects.filter(user = request.user)
+         
+         # print to console for debug/checking
+         for g in query_set:
+            if g.name == "Student":
+                return redirect('student/list_proposals')
+
          return redirect('cabinet/list_documents')
       else:
          messages.add_message(request, messages.ERROR, 'Invalid username or password')

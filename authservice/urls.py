@@ -18,6 +18,7 @@ from django.urls import path, include
 from home import urls as home_urls
 from cabinet import urls as cabinet_urls
 from students import urls as student_urls
+from supervisors import urls as supervisor_urls
 from django.conf import settings 
 from django.conf.urls.static import static
 from rest_framework import routers
@@ -34,6 +35,7 @@ urlpatterns = [
     path('', include(home_urls, namespace="home")),
     path('cabinet/', include(cabinet_urls, namespace="cabinet")),
     path('student/', include(student_urls, namespace="student")),
+    path('supervisor/', include(supervisor_urls, namespace="supervisor")),
     # path('admin/defender/', include('defender.urls')), # bruteforce defender 
     # path('api/', include(router.urls)),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
