@@ -57,6 +57,7 @@ def supervisor_dashboard(request):
     }
 
     return render(request , "cabinet/list_documents.html" , context) 
+    
 
 class UpdateDocument(SuccessMessageMixin, UpdateView):
     model = Cabinet

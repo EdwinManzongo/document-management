@@ -63,30 +63,33 @@ class DocumentEditForm(forms.ModelForm):
         model = Cabinet
  
 
-        fields = ['document_type', 'document_title', 'document', 'notes', 'supervisor']
+        fields = ['document_type', 'document_title', 'document', 'notes', 'supervisor', 'reviewer_notes']
 
         widgets  = {
             
             'function': forms.Select(attrs={
-                "class":" form-control custom-select",
+                "class":"form-control custom-select",
+                "readonly":"readonly"
             }),
             'client': forms.Select(attrs={
                 "class":"js-example-basic-single form-control custom-select",
+                "readonly":"readonly"
             }),
             'cabinet': forms.Select(attrs={
-                # "class":"js-example-basic-single form-control custom-select",
                 "class":"form-control custom-select",
-                "disabled":True,
-                "required":True,
+                "readonly":"readonly"
             }),
             'client_type': forms.Select(attrs={
                 "class":"form-control",
+                "readonly":"readonly"
             }),
             'document_type': forms.Select(attrs={
                 "class":"form-control",
+                "readonly":"readonly"
             }),
             'document_title': forms.TextInput(attrs={
                 "class":"form-control",
+                "readonly":"readonly"
             }),
             'document': forms.ClearableFileInput(
                 attrs={
@@ -100,10 +103,16 @@ class DocumentEditForm(forms.ModelForm):
             }),
             'notes': forms.TextInput(attrs={
                 "class":"form-control",
-                "rows":3
+                "rows":3,
+                "readonly": "readonly",
             }),
             'supervisor': forms.Select(attrs={
                 "class":" form-control custom-select",
+                "readonly": "readonly"
+            }),
+            'reviewer_notes': forms.TextInput(attrs={
+                "class":"form-control",
+                "rows":3
             }),
         }
 
