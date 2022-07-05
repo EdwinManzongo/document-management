@@ -52,6 +52,16 @@ def student_dashboard(request):
 
     return render(request , "students/list_documents.html" , context) 
 
+def student_trail(request):
+    all_calls = Cabinet.objects.filter(user_name = request.user)
+
+    context = {
+        'title':'Documents Trail',
+        'all_calls': all_calls,
+    }
+
+    return render(request , "students/documents_trail.html" , context) 
+
 class StudentsDetailView(DetailView):
     model = Student
    
