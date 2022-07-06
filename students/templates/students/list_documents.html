@@ -108,7 +108,8 @@
                                             <th>Document Title</th> 
                                             <th>Document</th> 
                                             <th>Notes</th>
-                                            <th>Created At</th> 
+                                            <th>Reviewer's Notes</th>
+                                            {% comment %} <th>Created At</th>  {% endcomment %}
                                             <th>Actions</th> 
                                         </tr>
                                     </thead>
@@ -149,7 +150,8 @@
                                                 <td>{{ item.document_title }}</td>
                                                 <td><a type="application/octet-stream" href="{{item.document.url}}" > View</a></td>
                                                 <td>{{ item.notes }}</td>
-                                                <td>{{ item.created_at }}</td>
+                                                <td>{{ item.reviewer_notes }}</td>
+                                                {% comment %} <td>{{ item.created_at }}</td> {% endcomment %}
                                                 <td>
                                                     <a href="{% url  'student:edit_document' item.id %}" class="btn btn-sm btn-outline-primary waves-effect waves-light" ><i class="fas fa-edit"></i></a>
                                                     <a href="{% url  'student:view_document' item.id %}" class="btn btn-sm btn-outline-warning waves-effect waves-light" ><i class="fa fa-eye" aria-hidden="true"></i></a>
