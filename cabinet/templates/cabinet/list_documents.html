@@ -104,7 +104,7 @@
                                             <th>Notes</th>
                                             <th>Reviewer's Notes</th>
                                             <th>Supervisor</th>
-                                            <th>Created At</th> 
+                                            {% comment %} <th>Created At</th>  {% endcomment %}
                                             <th>Actions</th> 
                                         </tr>
                                     </thead>
@@ -147,7 +147,7 @@
                                                 <td>{{ item.notes }}</td>
                                                 <td>{{ item.reviewer_notes }}</td>
                                                 <td>{{ item.supervisor }}</td>
-                                                <td>{{ item.created_at }}</td>
+                                                {% comment %} <td>{{ item.created_at }}</td> {% endcomment %}
                                                 <td>
                                                     <a href="{% url  'cabinet:edit_document' item.id %}" class="btn btn-sm btn-outline-primary waves-effect waves-light" ><i class="fas fa-edit"></i></a>
                                                     <a href="{% url  'cabinet:view_document' item.id %}" class="btn btn-sm btn-outline-warning waves-effect waves-light" ><i class="fa fa-eye" aria-hidden="true"></i></a>
