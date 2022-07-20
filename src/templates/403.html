@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- error-40424:04-->
+<head>
+ {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon"  href="{% static "assets/img/favicon.ico" %}">
+    <title>AMBULANCE DISPATCH</title>
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/style.css" %}">
+
+
+  
+</head>
+
+<body>
+    <div class="main-wrapper error-wrapper">
+        <div class="error-box">
+            <h1>403</h1>
+            <h3><i class="fa fa-warning"></i> Permission Denied !</h3>
+            <p>You dont have permission to access the requested Page !</p>
+            <a href="{% url 'incident:dashboard' %}" class="btn btn-primary go-home">Go to Dashboard</a>
+        </div>
+    </div>
+   <script src="{% static "assets/js/jquery-3.2.1.min.js" %}"></script>
+	<script src="{% static "assets/js/popper.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+</body>
+
+
+<!-- error-40424:04-->
+</html>
