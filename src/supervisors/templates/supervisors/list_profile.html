@@ -131,6 +131,7 @@
                                                 <td>
                                                     <a href="{% url  'supervisor:edit_profile' item.id %}" class="btn btn-sm btn-outline-primary waves-effect waves-light" ><i class="fas fa-edit"></i></a>
                                                     <a href="{% url  'supervisor:view_profile' item.id %}" class="btn btn-sm btn-outline-warning waves-effect waves-light" ><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a href="{% url  'student:grading' item.student_id %}" class="btn btn-sm btn-outline-warning waves-effect waves-light" ><i class="fa fab-marker" aria-hidden="true"></i></a>
                                                 </td>
                                             </tr>                                   
                                         {% endfor %}

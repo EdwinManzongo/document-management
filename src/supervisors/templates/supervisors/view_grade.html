@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block profile %}
-	<!-- <li><a class="dropdown-item" href="{% url 'student:create_profile' %}">Student Profile</a></li> -->
-	<li><a class="dropdown-item" href="{% url 'supervisor:create_supervisor' %}">Supervisor Profile</a></li>
+	<li><a class="dropdown-item" href="{% url 'student:create_profile' %}">Student Profile</a></li>
+	{% comment %} <li><a class="dropdown-item" href="{% url 'supervisor:create_supervisor' %}">Supervisor Profile</a></li> {% endcomment %}
 {% endblock %}
 
 {% block menu %}

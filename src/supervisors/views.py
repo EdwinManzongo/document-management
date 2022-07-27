@@ -4,6 +4,7 @@ from .forms import SupervisorCreateForm
 from students.forms import StudentCreateForm
 from .models import Supervisor 
 from students.models import Student 
+from cabinet.models import Cabinet 
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.utils import timezone
@@ -14,6 +15,31 @@ from django.views.generic import (CreateView, DetailView, ListView, TemplateView
 from django.views.generic.edit import DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 
+def student_grading(request, id):
+    # print(id)
+    sum_grade = 0
+
+    all_calls = Cabinet.objects.filter(user_name = id)
+    count_grade = Cabinet.objects.filter(user_name = id).count()
+
+    for item in all_calls:
+        sum_grade += item.grade
+
+    # print(sum_grade)
+    # print(count_grade)
+
+    if count_grade != 0:
+        average_grade = int(sum_grade / count_grade)
+    else:
+        average_grade = 0
+
+    context = {
+        'title':'Student Grading' + id,
+        'all_calls': all_calls,
+        'average_grade': average_grade,
+    }
+
+    return render(request , "students/view_grade.html", context) 
 
 class CreateSupervisor(CreateView):
     model = Supervisor
@@ -75,6 +101,11 @@ class StudentsDetailView(DetailView):
     model = Student
    
     template_name = "supervisors/view_profile.html"
+
+class GradeDetailView(DetailView):
+    model = Student
+   
+    template_name = "supervisors/view_grade.html"
 
 class UpdateStudent(SuccessMessageMixin , UpdateView):
     model = Student

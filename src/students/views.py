@@ -63,11 +63,12 @@ def student_trail(request):
 
     return render(request , "students/documents_trail.html" , context) 
 
-def student_grading(request):
+def student_grading(request, id):
+    # print(id)
     sum_grade = 0
 
-    all_calls = Cabinet.objects.filter(user_name = request.user)
-    count_grade = Cabinet.objects.filter(user_name = request.user).count()
+    all_calls = Cabinet.objects.filter(user_name = id)
+    count_grade = Cabinet.objects.filter(user_name = id).count()
 
     for item in all_calls:
         sum_grade += item.grade
@@ -81,12 +82,13 @@ def student_grading(request):
         average_grade = 0
 
     context = {
-        'title':'Student Grading',
+        'title':'Student Grading - ' + id,
         'all_calls': all_calls,
         'average_grade': average_grade,
     }
 
-    return render(request , "students/view_grade.html" , context) 
+    return render(request , "students/view_grade.html", context) 
+
 
 class StudentsDetailView(DetailView):
     model = Student
